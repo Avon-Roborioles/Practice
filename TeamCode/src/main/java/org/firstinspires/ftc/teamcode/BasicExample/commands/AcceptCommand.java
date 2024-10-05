@@ -11,21 +11,19 @@ public class AcceptCommand extends CommandBase{
     }
 
     @Override
-    public void execute() {
-
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-        subsystem.runServo();
+    public void initialize() {
+        if (subsystem.getRedAlliance()) {
+           if (subsystem.isColorSensorBlue()) {
+               new EjectCommand(subsystem);
+               // call eject command
+           } else {
+               // keep sample and proceed to next step
+           }
+        }
     }
 
     @Override
     public boolean isFinished() {
-        if (subsystem.getRedAlliance()) {
-            return subsystem.isColorSensorRed() || subsystem.isColorSensorYellow();
-        } else {
-            return subsystem.isColorSensorRed() || subsystem.isColorSensorYellow();
-        }
+        return true;
     }
 }

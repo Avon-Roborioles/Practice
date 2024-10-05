@@ -11,9 +11,11 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
 import org.firstinspires.ftc.teamcode.BasicExample.commands.AcceptCommand;
+import org.firstinspires.ftc.teamcode.BasicExample.commands.CollectSample;
 import org.firstinspires.ftc.teamcode.BasicExample.commands.ToggleAlliance;
 import org.firstinspires.ftc.teamcode.BasicExample.subsystem.BasicSubsystem;
 import org.firstinspires.ftc.teamcode.BasicExample.commands.RunServoCommand;
+import org.firstinspires.ftc.teamcode.BasicExample.commands.CollectSample;
 
 @TeleOp
 public class BasicOpMode extends CommandOpMode {
@@ -35,6 +37,9 @@ public class BasicOpMode extends CommandOpMode {
                 .whenPressed(new AcceptCommand(subsystem));
         gamepad.getGamepadButton(GamepadKeys.Button.X)
                 .whenPressed(new ToggleAlliance(subsystem));
+        gamepad.getGamepadButton(GamepadKeys.Button.Y)
+                .whenPressed(new CollectSample(subsystem));
+
 
     }
 
