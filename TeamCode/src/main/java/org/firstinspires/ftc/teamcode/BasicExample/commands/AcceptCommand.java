@@ -22,6 +22,10 @@ public class AcceptCommand extends CommandBase{
 
     @Override
     public boolean isFinished() {
-        return subsystem.isColorSensorRed() || subsystem.isColorSensorYellow();
+        if (subsystem.getRedAlliance()) {
+            return subsystem.isColorSensorRed() || subsystem.isColorSensorYellow();
+        } else {
+            return subsystem.isColorSensorRed() || subsystem.isColorSensorYellow();
+        }
     }
 }
