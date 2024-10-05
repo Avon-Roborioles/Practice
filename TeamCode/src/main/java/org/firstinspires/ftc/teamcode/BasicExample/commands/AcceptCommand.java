@@ -2,27 +2,26 @@ package org.firstinspires.ftc.teamcode.BasicExample.commands;
 import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.BasicExample.subsystem.BasicSubsystem;
 
-public class RunServoCommand extends CommandBase{
+public class AcceptCommand extends CommandBase{
     private BasicSubsystem subsystem;
 
-    public RunServoCommand(BasicSubsystem subsystem) {
+    public AcceptCommand(BasicSubsystem subsystem) {
         this.subsystem = subsystem;
         addRequirements(subsystem);
     }
 
-
     @Override
     public void execute() {
-        subsystem.runServo();
+
     }
 
     @Override
     public void end(boolean interrupted) {
-        subsystem.stopServo();
+        subsystem.runServo();
     }
 
     @Override
     public boolean isFinished() {
-        return subsystem.isTouchSensorPressed();
+        return subsystem.isColorSensorRed() || subsystem.isColorSensorYellow();
     }
 }
