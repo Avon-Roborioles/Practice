@@ -32,6 +32,9 @@ public class BasicSubsystem extends SubsystemBase {
         telemetry.addData("Motor running", motor.getPower());
         telemetry.addData("Servo running", servo.getPower());
         telemetry.addData("Touch Sensor", touchSensor.isPressed());
+        telemetry.addData("Red Sensor", colorSensor.red());
+        telemetry.addData("Blue Sensor", colorSensor.blue());
+        telemetry.addData("Green Sensor", colorSensor.green());
         telemetry.addData("Red Sample", isColorSensorRed());
         telemetry.addData("Blue Sample", isColorSensorBlue());
         telemetry.addData("Yellow Sample", isColorSensorYellow());
@@ -80,7 +83,10 @@ public class BasicSubsystem extends SubsystemBase {
     }
 
     public boolean isColorSensorYellow() {
-        return colorSensor.red() > colorSensor.blue() && colorSensor.green() > colorSensor.blue();
+         // return colorSensor.red() > colorSensor.blue() && colorSensor.green() > colorSensor.blue();
+        return colorSensor.red() > 800 && colorSensor.blue() < 400 && colorSensor.green() > 900;
+        // disable for now, as values need adjusting
+        //red > 800 & green > 900 & blue < 400
     }
 
     public void changeAlliance() {
