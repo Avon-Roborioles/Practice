@@ -84,7 +84,7 @@ public class BasicSubsystem extends SubsystemBase {
 
     public boolean isColorSensorYellow() {
          // return colorSensor.red() > colorSensor.blue() && colorSensor.green() > colorSensor.blue();
-        return colorSensor.red() > 800 && colorSensor.blue() < 400 && colorSensor.green() > 900;
+        return colorSensor.red() > 600 && colorSensor.blue() < 400 && colorSensor.green() > 800;
         // disable for now, as values need adjusting
         //red > 800 & green > 900 & blue < 400
     }
