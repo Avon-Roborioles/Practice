@@ -28,36 +28,34 @@ public class CollectSample extends CommandBase{
 
     @Override
     public void execute() {
-        hasSample = subsystem.isTouchSensorPressed();
+        hasSample = subsystem.hasSample();
 
         if (!hasSample & !ejecting) {
-            subsystem.runServo();
+            subsystem.runMotor();
         }
 
         if (ejecting & !timer.done()) {
-            subsystem.runServo();
+            subsystem.runMotor();
         } else if (ejecting & timer.done()) {
             ejecting = false;
-            subsystem.stopServo();
+            subsystem.stopMotor();
         }
 
         if (hasSample & !ejecting) {
-            if (subsystem.getRedAlliance() & (subsystem.isColorSensorRed() | subsystem.isColorSensorYellow())) {
-                validSample = true;
-            } else if (!subsystem.getRedAlliance() & (subsystem.isColorSensorBlue() | subsystem.isColorSensorYellow())) {
-                validSample = true;
-            } else {
-                // sample is not valid; eject
+            // check if sample is valid
+            if ((subsystem.getRedAlliance() & subsystem.isColorSensorBlue()) | (!subsystem.getRedAlliance() & subsystem.isColorSensorRed())) {
                 validSample = false;
                 ejecting = true;
                 timer.start();
+            } else {
+                validSample = true;
             }
         }
     }
 
     @Override
     public void end(boolean interrupted) {
-        subsystem.stopServo();
+        subsystem.stopMotor();
         // Exit if command is interrupted
         if(interrupted) validSample = true;
     }

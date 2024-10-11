@@ -9,12 +9,14 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 import org.firstinspires.ftc.teamcode.BasicExample.commands.CollectSample;
 import org.firstinspires.ftc.teamcode.BasicExample.commands.ToggleAlliance;
 import org.firstinspires.ftc.teamcode.BasicExample.subsystem.BasicSubsystem;
-import org.firstinspires.ftc.teamcode.BasicExample.commands.RunServoCommand;
 import org.firstinspires.ftc.teamcode.BasicExample.commands.CancelCommand;
+import org.firstinspires.ftc.teamcode.BasicExample.commands.EjectCommand;
 
 @TeleOp
 public class BasicOpMode extends CommandOpMode {
@@ -24,14 +26,14 @@ public class BasicOpMode extends CommandOpMode {
     @Override
     public void initialize() {
         subsystem = new BasicSubsystem(telemetry, hardwareMap.get(DcMotor.class, "motor"),
-                hardwareMap.get(CRServo.class, "servo"),
-                hardwareMap.get(TouchSensor.class, "touchSensor"),
                 hardwareMap.get(ColorSensor.class, "colorSensor"),
-                hardwareMap.get(RevBlinkinLedDriver.class, "blinkin"));
+                hardwareMap.get(RevBlinkinLedDriver.class, "blinkin"),
+                hardwareMap.get(DistanceSensor.class, "distanceSensor"),
+                hardwareMap.get(ServoImplEx.class, "allianceColor"));
         gamepad = new GamepadEx(gamepad1);
 
         gamepad.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed(new RunServoCommand(subsystem));
+                .whenPressed(new EjectCommand(subsystem));
         gamepad.getGamepadButton(GamepadKeys.Button.B)
                 .whenPressed(new CancelCommand(subsystem));
         gamepad.getGamepadButton(GamepadKeys.Button.X)

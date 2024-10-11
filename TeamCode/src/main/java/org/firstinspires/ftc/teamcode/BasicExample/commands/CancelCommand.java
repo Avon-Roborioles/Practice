@@ -12,7 +12,7 @@ public class CancelCommand extends CommandBase{
 
     @Override
     public void initialize() {
-        subsystem.stopServo();
+        subsystem.stopMotor();
     }
 
     @Override

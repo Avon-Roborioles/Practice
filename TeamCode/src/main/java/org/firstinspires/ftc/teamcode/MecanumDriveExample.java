@@ -35,21 +35,11 @@ public class MecanumDriveExample extends LinearOpMode {
 
         waitForStart();
         while(!isStopRequested()) {
-            if (!FIELD_CENTRIC) {
-
-                drive.driveRobotCentric(
-                        driverOp.getLeftY(),
-                        driverOp.getLeftX(),
-                        driverOp.getRightX(),
-                        false);
-            } else {
-                drive.driveFieldCentric(
-                        driverOp.getLeftY(),
-                        driverOp.getLeftX(),
-                        driverOp.getRightX(),
-                        imu.,
-                        false);
-            }
+            drive.driveRobotCentric(
+                    driverOp.getLeftY(),
+                    driverOp.getLeftX(),
+                    driverOp.getRightX(),
+                    false);
         }
     }
 }

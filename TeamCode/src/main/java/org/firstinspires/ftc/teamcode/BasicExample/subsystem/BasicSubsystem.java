@@ -2,36 +2,40 @@ package org.firstinspires.ftc.teamcode.BasicExample.subsystem;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.ServoImplEx;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class BasicSubsystem extends SubsystemBase {
     private DcMotor motor;
     private Telemetry telemetry;
-    private CRServo servo;
-    private TouchSensor touchSensor;
     private ColorSensor colorSensor;
     private RevBlinkinLedDriver blinkin;
     private boolean RedAlliance = false;
+    private DistanceSensor distanceSensor;
+    private ServoImplEx allianceColor;
 
-    public BasicSubsystem(Telemetry telemetry, DcMotor motor, CRServo servo, TouchSensor touchSensor, ColorSensor colorSensor, RevBlinkinLedDriver blinkin) {
+    public BasicSubsystem(Telemetry telemetry, DcMotor motor, ColorSensor colorSensor, RevBlinkinLedDriver blinkin,
+                          DistanceSensor distanceSensor, ServoImplEx allianceColor) {
         this.telemetry = telemetry;
         this.motor = motor;
-        this.servo = servo;
-        this.touchSensor = touchSensor;
         this.colorSensor = colorSensor;
         this.blinkin = blinkin;
+        this.distanceSensor = distanceSensor;
+        this.allianceColor = allianceColor;
+        this.motor.setDirection(DcMotor.Direction.REVERSE);
+        // start as blue alliance
+        this.allianceColor.setPosition(0.61);
     }
 
     @Override
     public void periodic() {
         telemetry.addData("Motor running", motor.getPower());
-        telemetry.addData("Servo running", servo.getPower());
-        telemetry.addData("Touch Sensor", touchSensor.isPressed());
+        telemetry.addData("Distance Sensor", distanceSensor.getDistance(DistanceUnit.INCH));
         telemetry.addData("Red Sensor", colorSensor.red());
         telemetry.addData("Blue Sensor", colorSensor.blue());
         telemetry.addData("Green Sensor", colorSensor.green());
@@ -62,17 +66,7 @@ public class BasicSubsystem extends SubsystemBase {
         motor.setPower(0);
     }
 
-    public void runServo() {
-        servo.setPower(0.75);
-    }
-
-    public void stopServo() {
-        servo.setPower(0);
-    }
-
-    public boolean isTouchSensorPressed() {
-        return touchSensor.isPressed();
-    }
+    public boolean hasSample() { return (distanceSensor.getDistance(DistanceUnit.INCH) < 2.5); }
 
     public boolean isColorSensorRed() {
         return colorSensor.red() > colorSensor.blue() && colorSensor.red() > colorSensor.green();
@@ -82,15 +76,21 @@ public class BasicSubsystem extends SubsystemBase {
         return colorSensor.blue() > colorSensor.red() && colorSensor.blue() > colorSensor.green();
     }
 
+    // Update or remove method as yellow detection isn't used in the intake, only periodic color update
     public boolean isColorSensorYellow() {
          // return colorSensor.red() > colorSensor.blue() && colorSensor.green() > colorSensor.blue();
-        return colorSensor.red() > 600 && colorSensor.blue() < 400 && colorSensor.green() > 800;
+        return colorSensor.red() > 150 && colorSensor.blue() < 100 && colorSensor.green() > 150;
         // disable for now, as values need adjusting
         //red > 800 & green > 900 & blue < 400
     }
 
     public void changeAlliance() {
         this.RedAlliance = !getRedAlliance();
+        if(RedAlliance) {
+            allianceColor.setPosition(0.28);
+        } else {
+            allianceColor.setPosition(0.61);
+        }
     }
 
     public boolean getRedAlliance() {
