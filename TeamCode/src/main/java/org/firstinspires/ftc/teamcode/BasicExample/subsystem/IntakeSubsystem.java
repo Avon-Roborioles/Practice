@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class BasicSubsystem extends SubsystemBase {
+public class IntakeSubsystem extends SubsystemBase {
     private DcMotor motor;
     private Telemetry telemetry;
     private ColorSensor colorSensor;
@@ -19,8 +19,8 @@ public class BasicSubsystem extends SubsystemBase {
     private DistanceSensor distanceSensor;
     private ServoImplEx allianceColor;
 
-    public BasicSubsystem(Telemetry telemetry, DcMotor motor, ColorSensor colorSensor, RevBlinkinLedDriver blinkin,
-                          DistanceSensor distanceSensor, ServoImplEx allianceColor) {
+    public IntakeSubsystem(Telemetry telemetry, DcMotor motor, ColorSensor colorSensor, RevBlinkinLedDriver blinkin,
+                           DistanceSensor distanceSensor, ServoImplEx allianceColor) {
         this.telemetry = telemetry;
         this.motor = motor;
         this.colorSensor = colorSensor;

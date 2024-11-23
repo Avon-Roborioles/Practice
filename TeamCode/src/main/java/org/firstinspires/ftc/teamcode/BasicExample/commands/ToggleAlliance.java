@@ -1,11 +1,11 @@
 package org.firstinspires.ftc.teamcode.BasicExample.commands;
 import com.arcrobotics.ftclib.command.CommandBase;
-import org.firstinspires.ftc.teamcode.BasicExample.subsystem.BasicSubsystem;
+import org.firstinspires.ftc.teamcode.BasicExample.subsystem.IntakeSubsystem;
 
 public class ToggleAlliance extends CommandBase{
-    private BasicSubsystem subsystem;
+    private IntakeSubsystem subsystem;
 
-    public ToggleAlliance(BasicSubsystem subsystem) {
+    public ToggleAlliance(IntakeSubsystem subsystem) {
         this.subsystem = subsystem;
         addRequirements(subsystem);
     }

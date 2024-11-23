@@ -1,20 +1,20 @@
 package org.firstinspires.ftc.teamcode.BasicExample.commands;
 import com.arcrobotics.ftclib.command.CommandBase;
-import org.firstinspires.ftc.teamcode.BasicExample.subsystem.BasicSubsystem;
+import org.firstinspires.ftc.teamcode.BasicExample.subsystem.IntakeSubsystem;
 import com.arcrobotics.ftclib.util.Timing;
 
 import java.util.concurrent.TimeUnit;
 
 
 public class CollectSample extends CommandBase{
-    private BasicSubsystem subsystem;
+    private IntakeSubsystem subsystem;
     private boolean hasSample = false;
     private boolean validSample = false;
     boolean ejecting = false;
     Timing.Timer timer = new Timing.Timer(2, TimeUnit.SECONDS);
 
     // This command will acquire samples and either eject them or accept them based on color
-    public CollectSample(BasicSubsystem subsystem) {
+    public CollectSample(IntakeSubsystem subsystem) {
         this.subsystem = subsystem;
         addRequirements(subsystem);
     }
